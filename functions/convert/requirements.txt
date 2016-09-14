@@ -1,1 +1,4 @@
 boto3
+future
+usfm_utils
+uw_tools
