@@ -19,7 +19,8 @@ DEFAULT_CSS = os.path.join(here, "default.css")
 
 
 def handle(event, context):
-    job = retrieve(event, "job", "payload")
+    data = retrieve(event, "data", "event")
+    job = retrieve(data, "job", "data")
     # source: URL of zip archive of input USFM files
     source = retrieve(job, "source", "\"job\"")
     # stylesheets: (optional) list of CSS filenames
