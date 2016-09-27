@@ -14,10 +14,16 @@ after_success:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: "apex deploy --env $TRAVIS_BRANCH"
+  script: apex deploy --env $TRAVIS_BRANCH && ./register_module.sh https://test-api.door43.org/tx/module
   on:
     branch:
     - develop
+    python: '2.7'
+- provider: script
+  skip_cleanup: true
+  script: apex deploy --env $TRAVIS_BRANCH && ./register_module.sh https://api.door43.org/tx/module
+  on:
+    branch:
     - master
     python: '2.7'
 env:
