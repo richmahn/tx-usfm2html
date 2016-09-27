@@ -18,5 +18,5 @@ def handle(event, ctx):
 
     url = event['api_url']+'/tx/module'
 
-    response = requests.post(url, data=data, headers={'content-type': 'application/json'})
+    response = requests.post(url, json=data, headers={'content-type': 'application/json'})
     return json.loads(response.text)
