@@ -1,3 +1,5 @@
 boto3
 future
 usfm_utils
+ts-shared-tools
+

@@ -5,7 +5,7 @@
     "resource_types": ["bible"],
     "input_format": ["usfm"],
     "output_format": ["html"],
-    "options": [],
+    "options": ["stylesheets"],
     "private_links": [],
     "public_links": []
 }

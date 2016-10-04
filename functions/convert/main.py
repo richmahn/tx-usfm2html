@@ -19,17 +19,16 @@ DEFAULT_CSS = os.path.join(here, "default.css")
 
 
 def handle(event, context):
-    data = retrieve(event, "data", "event")
-    job = retrieve(data, "job", "data")
+    data = retrieve(event, "data", "payload")
+    job = retrieve(data, "job", "payload")
     # source: URL of zip archive of input USFM files
     source = retrieve(job, "source", "\"job\"")
     # stylesheets: (optional) list of CSS filenames
     stylesheets = [os.path.basename(DEFAULT_CSS)]
-    if "stylesheets" in job:
-        stylesheets.extend(job["stylesheets"])
-    upload = retrieve(event, "upload", "payload")
-    cdn_bucket = retrieve(upload, "cdn_bucket", "\"upload\"")
-    cdn_file = retrieve(upload, "cdn_file", "\"upload\"")
+    if "options" in job and "stylesheets" in job["options"]:
+        stylesheets.extend(job["options"]["stylesheets"])
+    cdn_bucket = retrieve(job, "cdn_bucket", "\"job\"")
+    cdn_file = retrieve(job, "cdn_file", "\"job\"")
 
     print('source: {}'.format(source))
     print('stylesheets: {}'.format(stylesheets))
@@ -88,4 +87,5 @@ def retrieve(dictionary, key, dict_name=None):
     if key in dictionary:
         return dictionary[key]
     dict_name = "dictionary" if dict_name is None else dict_name
-    raise Exception("{k} not found in {d}".format(k=repr(key), d=dict_name))
+    raise Exception("Bad Request: {k} not found in {d}".format(k=repr(key), d=dict_name))
+
